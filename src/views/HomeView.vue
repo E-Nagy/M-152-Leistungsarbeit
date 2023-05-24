@@ -61,11 +61,17 @@ onMounted(() => {
 watch(data, saveToLocalStorage, {deep: true})
 
 function average(grades) {
-  return roundToPoint5(grades.reduce((a, b) => a + b, 0) / grades.length)
+  if (grades.length>0){
+  return roundToPoint5(grades.reduce((a, b) => a + b, 0) / grades.length)}
+  else{
+    return "keine Noten"
+  }
 }
 
 function deleteSubject(id) {
-  data.value = data.filter(subject => subject.id !== id)
+  data.value = data.value.filter((subject) => {
+    return subject.id !== id})
+
 }
 
 function roundToPoint5(number) {
@@ -75,13 +81,13 @@ function roundToPoint5(number) {
 const maxId = ref(4)
 
 function addGrade(id) {
-  const grade = prompt('Note eingeben')
-  if (grade === null) {
-    return
+  const grade = parseInt(prompt('Note eingeben'))
+  if ( 1<= grade && grade<=6) {
+    const subject = data.value.find(subject => subject.id === id)
+    subject.grades.push(grade)
   }
 
-  const subject = data.value.find(subject => subject.id === id)
-  subject.grades.push(grade)
+  
 }
 
 function removeGradeFromSubject(gradeIndex, subjectIndex) {
@@ -90,14 +96,14 @@ function removeGradeFromSubject(gradeIndex, subjectIndex) {
 
 function addSubject() {
   const name = prompt('Fachname eingeben')
-  if (name === null) {
-    return
-  }
-  data.value.push({
+  if (name != "") {
+    data.value.push({
     id: ++maxId.value,
     name,
     grades: []
   })
+  }
+  
 }
 </script>
 
@@ -126,6 +132,7 @@ function addSubject() {
             <circle cx="10" cy="10" r="10" fill="green"/>
           </svg>
         </template>
+        
         <template v-else>
           <svg width="10" height="10">
             <circle cx="10" cy="10" r="10" fill="red"/>
@@ -146,34 +153,71 @@ function addSubject() {
 </template>
 
 <style lang="scss">
+h1{
+  margin-bottom: 50px;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-left: 0px;
+ 
 
   button {
-    margin-top: 0.5rem;
+    margin-top: 10px;
+
+    
+    &:hover{
+    background-color: #ab3b2a;
+    }
   }
+
 }
 
 .container {
   display: flex;
   width: 100%;
   margin-bottom: 0.5rem;
+  word-wrap: break-word;
+  
 
   &.header {
     font-weight: bold;
+    
   }
   
   .w-small {
     width: 10%;
+    margin-right: 20px;
+    padding: 10px;
+    font-weight: bold;
+    min-width: 50px;
   }
   .w-wide {
     width: 30%;
+    padding: 10px;
+    min-width: 150;
   }
   .w-normal {
     width: 20%;
+    background-color: rgb(244, 244, 244);
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 100px;
+
+    button{
+      font-size: small;
+      margin-bottom: 10px;
+      display: inline-block;
+      width: 80%;
+      &:hover{
+        background-color: rgb(48, 116, 50);
+      }
+    }
+    
   }
+  
 }
 table {
   border-collapse: collapse;
@@ -203,13 +247,14 @@ table {
   padding-right: 0.75rem;
 
   &:hover {
-    background-color: #a3d06c;
+    background-color: #ab3b2a;
+    border: none;
     color: white;
     position: relative;
 
     &:after {
       content: 'x';
-      position: absolute;
+      position: sticky;
       right: 10px;
       top: 0;
     }

@@ -14,10 +14,10 @@ function logout() {
           <RouterLink to="/">Noten</RouterLink>
         </li>
         <li>
-          <RouterLink to="/about">Profil</RouterLink>
+          <RouterLink to="/profil">Profil</RouterLink>
         </li>
         <li>
-          <a href="#">Logout</a>
+          <RouterLink to="/logout">Logout</RouterLink>
         </li>
       </ul>
     </nav>
@@ -25,14 +25,7 @@ function logout() {
 
   <RouterView />
 
-  <dialog ref="dialogElement">
-    <div>
-      Möchten Sie sich wirklich abmelden?
-    </div>
 
-    <button @click="logout">Ja</button>
-    <button value="Nein">Nein</button>
-  </dialog>
 </template>
 
 <style lang="scss">
