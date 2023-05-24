@@ -1,3 +1,9 @@
+<script>
+function logout() {
+  window.location.href = 'https://google.com'
+}
+</script>
+
 <template>
     <dialog ref="dialogElement">
         <div>

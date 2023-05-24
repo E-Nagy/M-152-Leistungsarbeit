@@ -1,4 +1,5 @@
 <script setup>
+import {onMounted, ref, watch} from "vue";
 
 const profiles = ref([
     {
@@ -42,18 +43,18 @@ const newPassword = ref();
       <div class="form">
         <h2>Neuer Eintrag</h2>
 
-        <label for="text">Name und Vorname</label>
-        <input ref="newTextField" v-model="newName" type="text" name="text" id="text" @keyup.enter="newProfile">
-        <label for="text">E-Mail Adresse der Schule</label>
-        <input v-model="newSchoolMail" type="text" name="text" id="text" @keyup.enter="newProfile">
-        <label for="text">E-Mail Adresse Privat</label>
-        <input v-model="newMail" type="text" name="text" id="text" @keyup.enter="newProfile">
-        <label for="text">Jahrgang</label>
-        <input v-model="newYear" type="number" name="text" id="text" @keyup.enter="newEntry">
-        <label for="text">Schuljahr</label>
-        <input v-model="newSchoolYear" type="number" name="text" id="text" @keyup.enter="newEntry">
-        <label for="text">Passwort</label>
-        <input v-model="newPassword" type="password" name="text" id="text" @keyup.enter="newEntry">
+        <label for="name">Name und Vorname</label>
+        <input ref="newTextField" v-model="newName" type="text" name="text" id="name" @keyup.enter="newProfile">
+        <label for="school-mail">E-Mail Adresse der Schule</label>
+        <input v-model="newSchoolMail" type="text" name="text" id="school-mail" @keyup.enter="newProfile">
+        <label for="mail">E-Mail Adresse Privat</label>
+        <input v-model="newMail" type="text" name="text" id="mail" @keyup.enter="newProfile">
+        <label for="year">Jahrgang</label>
+        <input v-model="newYear" type="number" name="text" id="year" @keyup.enter="newEntry">
+        <label for="school-year">Schuljahr</label>
+        <input v-model="newSchoolYear" type="number" name="text" id="school-year" @keyup.enter="newEntry">
+        <label for="password">Passwort</label>
+        <input v-model="newPassword" type="password" name="text" id="password" @keyup.enter="newEntry">
         <button @click="newProfile">Profil erstellen</button>
     </div>
   </template>

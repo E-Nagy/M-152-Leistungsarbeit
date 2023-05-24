@@ -1,9 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 
-function logout() {
-  window.location.href = 'https://google.com'
-}
 </script>
 
 <template>

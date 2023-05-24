@@ -90,6 +90,10 @@ function addGrade(id) {
   
 }
 
+function deleteGrades(subjectIndex){
+  data.value[subjectIndex].grades = []
+}
+
 function removeGradeFromSubject(gradeIndex, subjectIndex) {
   data.value[subjectIndex].grades.splice(gradeIndex, 1)
 }
@@ -117,7 +121,7 @@ function addSubject() {
       <div class="w-small">Durchschnitt</div>
       <div class="w-normal">Optionen</div>
     </div>
-
+    <hr>
     <div class="container" v-for="(subject, subjectIndex) in data" :key="subject.id">
       <div class="w-wide">{{ subject.name }}</div>
       <div class="w-wide">
@@ -125,6 +129,7 @@ function addSubject() {
             {{ grade }}
           </span>
       </div>
+    
       <div class="w-small">
         {{ average(subject.grades) }}
         <template v-if="average(subject.grades) > 4">
@@ -139,14 +144,16 @@ function addSubject() {
           </svg>
         </template>
       </div>
+      
       <div class="w-normal">
-        <button @click="deleteSubject(subject.id)">Löschen</button>
         <button @click="addGrade(subject.id)">Note hinzufügen</button>
+        <button @click="deleteGrades(subjectIndex)" class="delete">Noten Löschen</button>
+        <button @click="deleteSubject(subject.id)" class="delete">Löschen</button>
       </div>
     </div>
 
     <div class="buttons">
-      <button @click="addSubject">Fach hinzufügen</button>
+      <button @click="addSubject" class="add-subject">Fach hinzufügen</button>
       <button class="button-red" @click="resetGrades">Alle Noten zurücksetzen</button>
     </div>
   </main>
@@ -155,6 +162,13 @@ function addSubject() {
 <style lang="scss">
 h1{
   margin-bottom: 50px;
+}
+
+hr{
+  height: 2px;
+  border-width: 0;
+  color: gray;
+  background-color: gray;
 }
 
 .buttons {
@@ -166,11 +180,16 @@ h1{
 
   button {
     margin-top: 10px;
-
+    width: 20%;
+    font-size: smaller;
     
     &:hover{
     background-color: #ab3b2a;
     }
+  }
+  
+  .add-subject:hover{
+    background-color: rgb(48, 116, 50)
   }
 
 }
@@ -215,6 +234,10 @@ h1{
         background-color: rgb(48, 116, 50);
       }
     }
+
+    .delete:hover{
+      background-color: #ab3b2a;
+    }
     
   }
   
@@ -245,6 +268,7 @@ table {
   border-radius: 5px;
   cursor: pointer;
   padding-right: 0.75rem;
+  margin-bottom: 0.5rem;
 
   &:hover {
     background-color: #ab3b2a;
